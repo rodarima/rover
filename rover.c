@@ -517,8 +517,14 @@ update_view()
         if (j == ESEL)
             wattr_off(rover.window, A_REVERSE, NULL);
     }
+    /* Clean the rest of the screen to remove older files */
     for (; i < HEIGHT; i++)
         mvwhline(rover.window, i + 1, 1, ' ', COLS - 2);
+
+    /* Clean previous scrollbar */
+    mvwvline(rover.window, 1, COLS-1, ' ', HEIGHT);
+
+    /* Draw scrollbar */
     if (rover.nfiles > HEIGHT) {
         int center, height;
         center = (SCROLL + HEIGHT / 2) * HEIGHT / rover.nfiles;
